@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+
+    <!--  css -->
+
+
+<style>
+
+    .preview-img-box{
+        box-shadow: 0.125rem 25rem rgba(0, 0, 0, .075);
+       position: relative;
+      
+       margin: 10px;
+    }
+/* 
+    .preview-img-box img{
+        height: 100%;
+        width: 100%;
+        
+    } */
+
+    .preview-img-box button{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: transparent;
+        border: none;
+        color: red;
+    }
+
+    #preview{
+        display: flex;
+        
+    }
+    
+    </style>
+</head>
+
+
+
+
+<body>
+    
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Image Upload</h3>
+                </div>
+                <div class="card-body">
+                    <form action="http://localhost:5050/upload" method="post" enctype="multipart/form-data">
+                       <div class="my-3">
+                        <label for="file-upload">
+                            <img style="height: 200px ; width: 200px; object-fit: cover; " src="https://thumbs.dreamstime.com/b/upload-file-icon-trendy-logo-concept-white-backg-background-web-hosting-collection-suitable-use-apps-mobile-print-133526987.jpg" alt="">
+                        </label>
+                            <div id="preview"></div>
+                            <input style="display: none;" type="file" multiple name="photo" id="file-upload">
+                          </div>
+                       <hr>
+                       <div class="my-3">
+                        <label for="file-upload2">
+                            <img style="height: 200px ; width: 200px; object-fit: cover; " src="https://play-lh.googleusercontent.com/IkcyuPcrQlDsv62dwGqteL_0K_Rt2BUTXfV3_vR4VmAGo-WSCfT2FgHdCBUsMw3TPGU" alt="">
+                        </label>
+                        <div id="preview"></div>
+                        <input style="display: none;" type="file" name="cv" id="file-upload2"  >
+                       </div>
+                        <button class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Custom JavaScript -->
+
+<script>
+const file_upload = document.getElementById('file-upload');
+const preview = document.getElementById('preview');
+
+
+file_upload.onchange = (e) => {
+
+    // single file show
+
+
+    // const { type , size } = e.target.files[0];
+
+    // if (type == 'image/webp' || type == 'image/png' || type == 'image/jpg' || type == 'image/jpeg' || type == 'image/gif') {
+       
+    //     const imgUrl = URL.createObjectURL(e.target.files[0]);
+
+    //     preview.innerHTML = `<img style="height: 200px ; width: 200px; object-fit: cover; " src= ${imgUrl} alt="">`
+       
+    // }else {
+    //     alert('formate')
+    // }
+
+
+    // Multiple files show
+
+
+    let images = e.target.files;
+
+    
+
+    let prev = '';
+
+  for (image of images) {
+
+   
+    prev += ` 
+        <div class="preview-img-box">
+            <img style="height: 200px ; width: 200px; object-fit: cover;" src="${URL.createObjectURL(image)}" alt="">
+            <button class="delete-preview"><i class="fas fa-trash"></i></button>
+            </div> `
+
+  }
+
+  preview.innerHTML = prev ;
+    
+
+}
+
+preview.onclick = (e) =>{
+
+    e.preventDefault();
+
+    if (e.target.classList.contains('fa-trash')) {
+
+        e.target.parentElement.parentElement.remove();
+        
+    }
+}
+
+
+</script>
+
+
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
